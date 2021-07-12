@@ -25,25 +25,25 @@ request.onerror = function (event) {
 
 //  set the database for updates and add data
 function saveData(data) {
-  const dataUpdate = database.transaction(["open"], "readwrite");
+  const transaction = database.transaction(["open"], "readwrite");
 
-  const store = dataUpdate.objectStore("open");
+  const store = transaction.objectStore("open");
 
   store.add(data);
 }
 
 //  gather database information for use
 function gotoDB() {
-  const dataUpdate = database.transaction(["open"], "readwrite");
+  const transaction = database.transaction(["open"], "readwrite");
 
-  const store = dataUpdate.objectStore("open");
+  const store = transaction.objectStore("open");
 
   const pullAllData = store.pullAllData();
 
 //  verifies successful pull and sets for update/use/closure
   pullAllData.onsuccess = function () {
     if (pullAllData.result.length > 0) {
-      fetch("/api/dataUpdate/bulk", {
+      fetch("/api/transaction/bulk", {
         method: "POST",
         body: JSON.stringify(pullAllData.result),
         headers: {
@@ -53,9 +53,9 @@ function gotoDB() {
       })
         .then((response) => response.json())
         .then(() => {
-          const dataUpdate = database.transaction(["open"], "readwrite");
+          const transaction = database.transaction(["open"], "readwrite");
 
-          const store = dataUpdate.objectStore("open");
+          const store = transaction.objectStore("open");
 
           store.clear();
         });
