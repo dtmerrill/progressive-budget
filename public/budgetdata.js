@@ -1,3 +1,5 @@
+const { db } = require("../models/transaction");
+
 let database;
 
 //  create an indexed database to manage budget data
@@ -6,7 +8,7 @@ const request = indexedDB.open("progressive-budget-dtm-hw18", 1);
 request.onupgradeneeded = function (event) {
 
 //  create an empty/open object
-  const database = event.target.result;
+  const db = event.target.result;
   database.createObjectStore("open", { autoIncrement: true });
 };
 
@@ -25,7 +27,7 @@ request.onerror = function (event) {
 
 //  set the database for updates and add data
 function saveData(data) {
-  const transaction = database.transaction(["open"], "readwrite");
+  const transaction = db.transaction(["open"], "readwrite");
 
   const store = transaction.objectStore("open");
 
@@ -34,7 +36,7 @@ function saveData(data) {
 
 //  gather database information for use
 function gotoDB() {
-  const transaction = database.transaction(["open"], "readwrite");
+  const transaction = db.transaction(["open"], "readwrite");
 
   const store = transaction.objectStore("open");
 
@@ -53,7 +55,7 @@ function gotoDB() {
       })
         .then((response) => response.json())
         .then(() => {
-          const transaction = database.transaction(["open"], "readwrite");
+          const transaction = db.transaction(["open"], "readwrite");
 
           const store = transaction.objectStore("open");
 
