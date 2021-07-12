@@ -25,7 +25,7 @@ request.onerror = function (event) {
 
 //  set the database for updates and add data
 function saveData(data) {
-  const dataUpdate = database.dataUpdate(["open"], "readwrite");
+  const dataUpdate = database.transaction(["open"], "readwrite");
 
   const store = dataUpdate.objectStore("open");
 
@@ -34,7 +34,7 @@ function saveData(data) {
 
 //  gather database information for use
 function gotoDB() {
-  const dataUpdate = database.dataUpdate(["open"], "readwrite");
+  const dataUpdate = database.transaction(["open"], "readwrite");
 
   const store = dataUpdate.objectStore("open");
 
@@ -53,7 +53,7 @@ function gotoDB() {
       })
         .then((response) => response.json())
         .then(() => {
-          const dataUpdate = database.dataUpdate(["open"], "readwrite");
+          const dataUpdate = database.transaction(["open"], "readwrite");
 
           const store = dataUpdate.objectStore("open");
 
