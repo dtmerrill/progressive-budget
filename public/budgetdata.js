@@ -1,7 +1,7 @@
 let database;
 
 //  create an indexed database to manage budget data
-const request = indexedDB.open("budget", 1);
+const request = indexedDB.open("progressive-budget-dtm-hw18", 1);
 
 request.onupgradeneeded = function (event) {
 
