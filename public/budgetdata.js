@@ -1,6 +1,4 @@
-const { db } = require("../models/transaction");
-
-let database;
+let db;
 
 //  create an indexed database to manage budget data
 const request = indexedDB.open("progressive-budget-dtm-hw18", 1);
@@ -9,7 +7,7 @@ request.onupgradeneeded = function (event) {
 
 //  create an empty/open object
   const db = event.target.result;
-  database.createObjectStore("open", { autoIncrement: true });
+  db.createObjectStore("open", { autoIncrement: true });
 };
 
 request.onsuccess = function (event) {
