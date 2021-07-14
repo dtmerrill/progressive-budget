@@ -16,7 +16,8 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // added UnifiedTopology and CreateIndex to base code
-mongoose.connect("mongodb://localhost/progressive-budget-dtm-hw18", {
+const dbUrl = process.env.MONGOD_URI || 'mongodb://localhost/progressive-budget-dtm-hw18'
+mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
